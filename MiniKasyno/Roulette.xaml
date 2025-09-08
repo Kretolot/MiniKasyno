@@ -1,0 +1,125 @@
+﻿<!--
+    /*
+    Zadanie zaliczeniowe z C#
+    Imię i nazwisko ucznia: Tomasz Gradowski
+    Data wykonania zadania: 29.02.2025
+    Treść zadania: Ksyno - mini
+    Opis funkcjonalności aplikacji: Mini kasyno, które zawiera gry BlackJack oraz Ruletkę.
+*/
+-->
+
+<Window x:Class="MiniKasyno.Roulette"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Roulette" Height="450" Width="800"
+        Background="DarkGreen" 
+        Foreground="White"
+        WindowStartupLocation="CenterScreen">
+
+    <!-- Główna siatka układu interfejsu użytkownika -->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Obraz ruletki -->
+        <Image x:Name="imgRoulette" Source="/images/ruletka.png" Width="280" Height="280"
+           HorizontalAlignment="Center" VerticalAlignment="Center"
+           Grid.Column="0"/>
+
+        <!-- Element multimedialny do wyświetlania wideo ruletki -->
+        <MediaElement x:Name="mediaElement" Width="280" Height="280"
+                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                  LoadedBehavior="Manual" UnloadedBehavior="Stop"
+                  MediaEnded="MediaElement_MediaEnded"
+                  Visibility="Collapsed"
+                  Grid.Column="0"
+                  Panel.ZIndex="1"/>
+
+        <!-- Obramowanie dla ruletki -->
+        <Image x:Name="imgObram" Source="/images/obramm.png" Width="282" Height="282"
+           HorizontalAlignment="Center" VerticalAlignment="Center"
+           Grid.Column="0"
+           Panel.ZIndex="2"/>
+
+        <!-- Obszar wyświetlania numerów ruletki -->
+        <Canvas x:Name="rouletteNumbersCanvas" Width="500" Height="200"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
+            <!-- Liczby na kole ruletki -->
+            <TextBlock Text="0" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Top="80" Background="Green" TextAlignment="Center" MouseDown="Number_Click"/>
+            <TextBlock Text="3" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="30" Canvas.Top="50" Background="Red" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="6" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="60" Canvas.Top="50" Background="Black" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="9" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="90" Canvas.Top="50" Background="Red" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="12" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="120" Canvas.Top="50" Background="Red" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="15" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="150" Canvas.Top="50" Background="Black" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="18" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="180" Canvas.Top="50" Background="Red" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="21" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="210" Canvas.Top="50" Background="Red" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="24" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="240" Canvas.Top="50" Background="Black" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="27" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="270" Canvas.Top="50" Background="Red" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="30" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="300" Canvas.Top="50" Background="Red" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="33" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="330" Canvas.Top="50" Background="Black" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="36" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="360" Canvas.Top="50" Background="Red" TextAlignment="Center"  MouseDown="Number_Click"/>
+
+            <TextBlock Text="2" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="30" Canvas.Top="80" Background="Black" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="5" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="60" Canvas.Top="80" Background="Red" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="8" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="90" Canvas.Top="80" Background="Black" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="11" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="120" Canvas.Top="80" Background="Black" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="14" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="150" Canvas.Top="80" Background="Red" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="17" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="180" Canvas.Top="80" Background="Black" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="20" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="210" Canvas.Top="80" Background="Black" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="23" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="240" Canvas.Top="80" Background="Red" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="26" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="270" Canvas.Top="80" Background="Black" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="29" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="300" Canvas.Top="80" Background="Black" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="32" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="330" Canvas.Top="80" Background="Red" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="35" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="360" Canvas.Top="80" Background="Black" TextAlignment="Center"  MouseDown="Number_Click"/>
+
+            <TextBlock Text="1" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="30" Canvas.Top="110" Background="Red" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="4" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="60" Canvas.Top="110" Background="Black" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="7" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="90" Canvas.Top="110" Background="Red" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="10" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="120" Canvas.Top="110" Background="Black" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="13" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="150" Canvas.Top="110" Background="Black" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="16" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="180" Canvas.Top="110" Background="Red" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="19" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="210" Canvas.Top="110" Background="Red" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="22" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="240" Canvas.Top="110" Background="Black" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="25" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="270" Canvas.Top="110" Background="Red" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="28" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="300" Canvas.Top="110" Background="Black" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="31" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="330" Canvas.Top="110" Background="Black" TextAlignment="Center"  MouseDown="Number_Click"/>
+            <TextBlock Text="34" FontSize="14" Foreground="White" Width="30" Height="30" Canvas.Left="360" Canvas.Top="110" Background="Red" TextAlignment="Center"  MouseDown="Number_Click"/>
+        </Canvas>
+
+        <!-- Zegar w prawym górnym rogu -->
+        <TextBlock Name="txtClock" FontSize="12" 
+                   HorizontalAlignment="Right" VerticalAlignment="Top" 
+                   Margin="5" Grid.ColumnSpan="2"/>
+
+        <!-- Przycisk powrotu do menu głównego -->
+        <Button Name="btnEnter" FontSize="8" Content="Wróć" 
+                Width="30" Height="20"
+                Margin="0,3,0,0" Background="White" Foreground="Black" 
+                Click="btnBack_Click"
+                HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" 
+                            CornerRadius="5" 
+                            BorderThickness="2"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <!-- Przycisk zakładu na czerwone -->
+        <Button Name="btnRed" Content="RED" FontSize="16" Width="100" Height="40" 
+                Background="Red" Foreground="White" VerticalAlignment="Bottom"
+                Margin="200,0,0,30" Click="Color_Click" Panel.ZIndex="2"/>
+
+        <!-- Przycisk zakładu na czarne -->
+        <Button Name="btnBlack" Content="BLACK" FontSize="16" Width="100" Height="40" 
+                Background="Black" Foreground="White" VerticalAlignment="Bottom"
+                Margin="400,0,0,30" Click="Color_Click"/>
+    </Grid>
+
+</Window>
